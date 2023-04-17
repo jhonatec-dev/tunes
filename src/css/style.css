@@ -23,6 +23,10 @@ html {
   background: var(--background);
 }
 
+a {
+  text-decoration: none;
+}
+
 .Button {
   background: var(--background-elements);
   border: none;
@@ -130,3 +134,45 @@ input {
   border: none;
   color: white;
 }
+
+.Albums {
+  margin: 20px auto;
+  max-width: 900px;
+}
+
+.Albums h2 {
+  text-align: center;
+}
+
+/* AlbumCard */
+.AlbumCard {
+  align-items: end;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  position: relative;
+
+}
+
+.AlbumCard span {
+  left: 30px;
+  opacity: 0;
+  position: absolute;
+  top: 40%;
+}
+
+.AlbumCard img {
+  width: 60px;
+}
+
+.AlbumCard:hover img {
+  filter: brightness(25%);
+}
+
+.AlbumCard:hover span {
+  opacity: 1;
+}
+

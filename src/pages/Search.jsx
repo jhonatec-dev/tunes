@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import AlbumCard from '../components/AlbumCard';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
@@ -68,26 +69,20 @@ export default class Search extends Component {
         {
           showLoading ? (<Loading />)
             : (
-              <div>
-                <h3>
+              <div className="Albums">
+                <h2>
                   {
                     albums.length > 0 ? `Resultado de álbuns de: ${artist}`
                       : 'Nenhum álbum foi encontrado'
                   }
-                </h3>
+                </h2>
                 {albums.map((album, index) => (
                   <Link
                     key={ index }
                     to={ `/album/${album.collectionId}` }
                     data-testid={ `link-to-album-${album.collectionId}` }
                   >
-                    <div
-                      className="album--card"
-                      key={ index }
-                    >
-                      {album.collectionName}
-
-                    </div>
+                    <AlbumCard { ...album } />
                   </Link>
                 ))}
               </div>

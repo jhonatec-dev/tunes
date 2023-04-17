@@ -31,6 +31,13 @@ export default class Search extends Component {
     this.setState({ showLoading: false, albums });
   };
 
+  handleKeyDown = ({ keyCode }) => {
+    const enterKC = 13;
+    if (keyCode === enterKC) {
+      this.handleSearchClick();
+    }
+  };
+
   render() {
     const { buttonDisabled, searchInputText, showLoading, artist, albums } = this.state;
     return (
@@ -45,13 +52,17 @@ export default class Search extends Component {
             placeholder="Digite o artista/música"
             onChange={ this.handleInputChange }
             value={ searchInputText }
+            onKeyDown={ this.handleKeyDown }
           />
+
           <button
             data-testid="search-artist-button"
             disabled={ buttonDisabled }
             onClick={ this.handleSearchClick }
           >
-            Pesquisar
+            <span className="material-symbols-outlined">
+              search
+            </span>
           </button>
         </div>
         {

@@ -5,7 +5,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #1d1d1d;
   color: white;
 }
 
@@ -14,13 +13,4 @@ code {
     monospace;
 }
 
-.Loading {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
 
-.Login {
-  display: flex;
-  flex-direction: column;
-}

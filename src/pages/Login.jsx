@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import Button from '../components/Button';
 import Loading from '../components/Loading';
 import { createUser } from '../services/userAPI';
 
@@ -26,10 +27,17 @@ export default class Login extends Component {
     history.push('/search');
   };
 
+  handleKeyDown = ({ keyCode }) => {
+    const enterKeyCode = 13;
+    if (keyCode === enterKeyCode) {
+      this.handleLoginClick();
+    }
+  };
+
   render() {
     const { buttonDisabled, showLoading } = this.state;
     return (
-      <div data-testid="page-login">
+      <div data-testid="page-login" className="Login__container">
         {showLoading
           ? (<Loading />)
           : (
@@ -42,15 +50,16 @@ export default class Login extends Component {
                 placeholder="Digite aqui"
                 data-testid="login-name-input"
                 onChange={ this.handleNameInputChange }
+                onKeyDown={ this.handleKeyDown }
               />
-              <button
+              <Button
                 data-testid="login-submit-button"
                 disabled={ buttonDisabled }
                 onClick={ this.handleLoginClick }
-              >
-                Entrar
+                text="Entrar"
+                className="Button"
+              />
 
-              </button>
             </div>
           )}
 

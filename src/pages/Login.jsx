@@ -33,7 +33,7 @@ export default class Login extends Component {
         {showLoading
           ? (<Loading />)
           : (
-            <>
+            <div className="Login">
               <label htmlFor="login-name-input">Digite seu nome para entrar</label>
               <input
                 type="text"
@@ -51,7 +51,7 @@ export default class Login extends Component {
                 Entrar
 
               </button>
-            </>
+            </div>
           )}
 
       </div>

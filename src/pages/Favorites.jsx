@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
@@ -20,8 +21,16 @@ export default class Favorites extends Component {
     this.setState({ favorites, showLoading: false });
   };
 
+  handlePlayClick = (index) => {
+    const { playSongClick } = this.props;
+    const { favorites } = this.state;
+
+    playSongClick(favorites, index);
+  };
+
   render() {
     const { showLoading, favorites } = this.state;
+
     return (
       <div data-testid="page-favorites">
         <Header />
@@ -30,10 +39,11 @@ export default class Favorites extends Component {
             : (
               <div>
                 {
-                  favorites.map((fav) => (<MusicCard
+                  favorites.map((fav, index) => (<MusicCard
                     key={ fav.trackId }
                     music={ fav }
                     isFavorited
+                    playSongClick={ () => this.handlePlayClick(index) }
                     handleRemoveFromFavorites={ this.handleFavorites }
                   />))
                 }
@@ -44,3 +54,7 @@ export default class Favorites extends Component {
     );
   }
 }
+
+Favorites.propTypes = {
+  playSongClick: PropTypes.func.isRequired,
+};

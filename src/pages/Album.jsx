@@ -12,6 +12,7 @@ export default class Album extends Component {
     musics: [],
     artistName: '',
     albumName: '',
+    artworkUrl100: '',
     favorites: [],
     showLoading: true,
   };
@@ -26,7 +27,8 @@ export default class Album extends Component {
         favorites,
         showLoading: false,
         artistName: musics[0].artistName,
-        albumName: musics[0].collectionName });
+        albumName: musics[0].collectionName,
+        artworkUrl100: musics[0].artworkUrl100 });
     } catch (error) {
       Swal.fire({
         title: 'A requisição falhou',
@@ -38,17 +40,21 @@ export default class Album extends Component {
 
   render() {
     const { musics, artistName, albumName,
-      showLoading, favorites } = this.state;
+      showLoading, favorites, artworkUrl100 } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
         {
           showLoading ? <Loading />
             : (
-              <div>
-                <div>
-                  <h2 data-testid="artist-name">{artistName}</h2>
-                  <h3 data-testid="album-name">{albumName}</h3>
+              <div className="AlbumDetailed">
+                <div className="album__data">
+                  <img src={ artworkUrl100 } alt={ albumName } />
+                  <div>
+                    <h3 data-testid="artist-name">{artistName}</h3>
+                    <h4 data-testid="album-name">{albumName}</h4>
+                  </div>
+
                 </div>
                 {
                   musics.map((music, index) => (

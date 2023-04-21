@@ -38,6 +38,13 @@ export default class Album extends Component {
     }
   }
 
+  handlePlayClick = (index) => {
+    const { playSongClick } = this.props;
+    const { musics } = this.state;
+
+    playSongClick(musics, index);
+  };
+
   render() {
     const { musics, artistName, albumName,
       showLoading, favorites, artworkUrl100 } = this.state;
@@ -61,6 +68,7 @@ export default class Album extends Component {
                     <MusicCard
                       key={ index }
                       music={ music }
+                      playSongClick={ () => this.handlePlayClick(index) }
                       isFavorited={
                         favorites.some(({ trackId }) => trackId === music.trackId)
                       }
@@ -75,10 +83,15 @@ export default class Album extends Component {
   }
 }
 
+Album.defaultProps = {
+  playSongClick: () => {},
+};
+
 Album.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
   }).isRequired,
+  playSongClick: PropTypes.func,
 };

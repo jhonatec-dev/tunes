@@ -13,33 +13,81 @@ import Search from './pages/Search';
 // Fallen Angel, come and kiss me kkkk
 class App extends React.Component {
   state = {
-    playlist: [{}],
+    playlist: [],
     playing: 0,
+    audio: new Audio(),
+    music: {},
+    isLogged: true,
   };
 
   playSongClick = (playlist, playing) => {
-    this.setState({ playlist, playing });
+    const { audio } = this.state;
+    audio.pause();
+    const music = playlist[playing];
+    const newAudio = new Audio(music.previewUrl);
+    this.setState(
+      { playlist, playing, music, audio: newAudio },
+      () => { newAudio.play(); },
+    );
+  };
+
+  nextSong = () => {
+    const { playlist } = this.state;
+    let { playing, audio } = this.state;
+    audio.pause();
+    if (playing < playlist.length - 1) {
+      playing += 1;
+    } else {
+      playing = 0;
+    }
+    const music = playlist[playing];
+    audio = new Audio(music.previewUrl);
+    this.setState({ playlist, playing, music, audio }, () => { audio.play(); });
+  };
+
+  setIsLogged = () => {
+    this.setState({ isLogged: true });
   };
 
   render() {
+    const { isLogged, music, audio, playlist } = this.state;
     return (
       <main>
-        <Player { ...this.state } />
-        <Switch>
-          <Route exact path="/" component={ Login } />
-          <Route exact path="/search" component={ Search } />
-          <Route exact path="/album/:id" component={ Album } />
-          <Route
-            exact
-            path="/favorites"
-            render={
-              (props) => <Favorites { ...props } playSongClick={ this.playSongClick } />
-            }
-          />
-          <Route exact path="/profile" component={ Profile } />
-          <Route exact path="/profile/edit" component={ ProfileEdit } />
-          <Route path="*" component={ NotFound } />
-        </Switch>
+        {isLogged && playlist.length > 0 && <Player
+          music={ music }
+          audio={ audio }
+          nextSong={ this.nextSong }
+        /> }
+        <section className="main__content">
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={
+                (props) => <Login { ...props } setIsLogged={ this.setIsLogged } />
+              }
+            />
+            <Route exact path="/search" component={ Search } />
+            <Route
+              exact
+              path="/album/:id"
+              render={
+                (props) => <Album { ...props } playSongClick={ this.playSongClick } />
+              }
+            />
+            <Route
+              exact
+              path="/favorites"
+              render={
+                (props) => <Favorites { ...props } playSongClick={ this.playSongClick } />
+              }
+            />
+            <Route exact path="/profile" component={ Profile } />
+            <Route exact path="/profile/edit" component={ ProfileEdit } />
+            <Route path="*" component={ NotFound } />
+          </Switch>
+        </section>
+
       </main>
     );
   }

@@ -1,30 +1,20 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import ReactSlider from 'react-slider';
+import Button from './Button';
 
 export default class Player extends Component {
   state = {
-    playlist: [],
-    playing: 0,
     time: '',
     duration: '',
-    volume: 0.2,
-    audio: new Audio(''),
+    // volume: 0.1,
+    // nextButtonClicked: false,
+    // slider: '',
   };
 
-  componentDidUpdate() {
-    const { playlist: propPlaylist, playing: propPlaying } = this.props;
-    const { playlist: statePlaylist, playing: statePlaying, volume, audio } = this.state;
-    if (this.comparePL(propPlaylist, propPlaying, statePlaylist, statePlaying)) {
-      audio.pause();
-      const newSong = new Audio(propPlaylist[propPlaying].previewUrl);
-      newSong.volume = volume;
-      this.setState({
-        playlist: propPlaylist,
-        playing: propPlaying,
-        audio: newSong,
-      });
-    }
-    return true;
+  componentDidMount() {
+    const timer = 300;
+    setInterval(this.renderAudioInfo, timer);
   }
 
   convertSeconds = (seg) => {
@@ -45,50 +35,75 @@ export default class Player extends Component {
     return result; // 👉️ "09:25"
   };
 
-  comparePL = (propPL, propP, statePL, statP) => JSON.stringify(statePL)
-  !== JSON.stringify(propPL)
-    || JSON.stringify(statP)
-    !== JSON.stringify(propP);
-
   renderAudioInfo = () => {
-    const { audio } = this.state;
+    const { audio } = this.props;
+    const durationAudio = Number.isNaN(audio.duration) ? 0 : audio.duration;
     this.setState({ time: this.convertSeconds(audio.currentTime),
-      duration: this.convertSeconds(audio.duration) });
+      duration: this.convertSeconds(durationAudio) });
   };
 
-  playMusic = () => {
-    const { audio } = this.state;
-    audio.play();
-    const timer = 500;
-    setInterval(this.renderAudioInfo, timer);
-  };
-
-  getTime = () => {
-    const { playing } = this.state;
-    this.setState({ time: (playing.currentTime) });
+  playPauseMusic = () => {
+    const { audio } = this.props;
+    if (audio.paused) {
+      audio.play();
+      this.setState({ statusButton: 'pause' });
+    } else {
+      audio.pause();
+      this.setState({ statusButton: 'play_arrow' });
+    }
   };
 
   render() {
-    const { time, playlist, duration } = this.state;
+    const { music, nextSong, audio } = this.props;
+    const { time, duration } = this.state;
     return (
-      <div>
-        Player
-        <h1>Teste</h1>
-        <button onClick={ this.playMusic }>Play</button>
-        {playlist.length > 0 && <h2>DEU BOM EIN</h2> }
-        <button onClick={ this.getTime }>playing</button>
-        <h2>
-          Time
-          <span>{` ${time}/${duration}`}</span>
-        </h2>
+      <div className="Player">
+        <div className="Slider">
+          <ReactSlider
+            className="horizontal-slider"
+            thumbClassName="example-thumb"
+            trackClassName="example-track"
+            renderThumb={ (props, state) => <div { ...props }>{state.valueNow}</div> }
+          />
+        </div>
+
+        <img src={ music.artworkUrl60 } alt={ music.trackName } />
+        <div className="track__info">
+          <h3>{music.trackName}</h3>
+          <p>{music.artistName}</p>
+        </div>
+        <div className="play__next__buttons">
+          <p className="time__song">{` ${time}/${duration}`}</p>
+          <Button
+            className="material-symbols-outlined Button isChecked"
+            text={ audio.paused ? 'play_arrow' : 'pause' }
+            onClick={ this.playPauseMusic }
+          />
+          <Button
+            className="material-symbols-outlined Button isChecked"
+            text="skip_next"
+            onClick={ nextSong }
+          />
+        </div>
+
       </div>
     );
   }
 }
 
 Player.propTypes = {
-  playing: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  playlist: PropTypes.arrayOf(PropTypes.shape({
-    previewUrl: PropTypes.string,
-  })).isRequired,
+  audio: PropTypes.shape({
+    currentTime: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    pause: PropTypes.func,
+    paused: PropTypes.bool,
+    play: PropTypes.func,
+  }).isRequired,
+  music: PropTypes.shape({
+    artistName: PropTypes.string,
+    artworkUrl100: PropTypes.string,
+    artworkUrl60: PropTypes.string,
+    trackName: PropTypes.string,
+  }).isRequired,
+  nextSong: PropTypes.func.isRequired,
 };

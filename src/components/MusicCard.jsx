@@ -14,7 +14,9 @@ export default class MusicCard extends Component {
     this.setState({ isFavorited });
   }
 
-  handleFavoritar = async ({ target: { className } }) => {
+  handleFavoritar = async (event) => {
+    const { target: { className } } = event;
+    event.stopPropagation();
     this.setState({ showLoading: true });
     const { music, handleRemoveFromFavorites } = this.props;
     if (className.includes('isChecked')) {

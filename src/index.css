@@ -13,4 +13,18 @@ code {
     monospace;
 }
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #171717;
+}
 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #383838, #252424);
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4d4d4d;
+}

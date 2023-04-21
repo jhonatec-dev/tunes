@@ -21,9 +21,10 @@ export default class Login extends Component {
 
   handleLoginClick = async () => {
     const { nameInput } = this.state;
-    const { history } = this.props;
+    const { history, setIsLogged } = this.props;
     this.setState({ showLoading: true });
     await createUser({ name: nameInput });
+    setIsLogged();
     history.push('/search');
   };
 
@@ -72,4 +73,5 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  setIsLogged: PropTypes.func.isRequired,
 };

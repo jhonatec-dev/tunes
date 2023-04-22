@@ -15,6 +15,12 @@ export default class Login extends Component {
     selIndexAvatar: 0,
   };
 
+  playWelcome = () => {
+    const { audio } = this.props;
+    audio.volume = 0.30;
+    audio.play();
+  };
+
   handleNameInputChange = ({ target }) => {
     const minLength = 3;
     this.setState({
@@ -44,7 +50,11 @@ export default class Login extends Component {
   render() {
     const { buttonDisabled, showLoading } = this.state;
     return (
-      <div data-testid="page-login" className="Login__container">
+      <div
+        data-testid="page-login"
+        className="Login__container"
+        onClickCapture={ this.playWelcome }
+      >
         <Title />
         {showLoading
           ? (<Loading />)
@@ -79,6 +89,10 @@ export default class Login extends Component {
 }
 
 Login.propTypes = {
+  audio: PropTypes.shape({
+    play: PropTypes.func,
+    volume: PropTypes.number,
+  }).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,

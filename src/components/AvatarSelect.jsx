@@ -8,6 +8,11 @@ export default class AvatarSelect extends Component {
     selIndex: 0,
   };
 
+  componentDidMount() {
+    const { initialIndex } = this.props;
+    this.setState({ selIndex: initialIndex });
+  }
+
   nextImg = () => {
     const { selIndex } = this.state;
     this.setState({
@@ -46,6 +51,11 @@ export default class AvatarSelect extends Component {
   }
 }
 
+AvatarSelect.defaultProps = {
+  initialIndex: 0,
+};
+
 AvatarSelect.propTypes = {
+  initialIndex: PropTypes.number,
   setSelIndexAvatar: PropTypes.func.isRequired,
 };

@@ -2,6 +2,8 @@
 
 @import url('https://fonts.cdnfonts.com/css/sf-archery-black') ;
 
+@import url('https://fonts.cdnfonts.com/css/eagle-4') ;
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -66,6 +68,11 @@ a {
   font-variation-settings: 'FILL' 0 , 'wght' 400 , 'GRAD' 0 , 'opsz' 48;
 }
 
+body {
+  font-family: Eagle Ligth , sans-serif;
+
+  /* font-size: 18px; */
+}
 
 .main__content {
   padding: 20px 0;
@@ -225,9 +232,11 @@ input {
   color: white;
   display: flex;
   gap: 16px;
+  justify-content: space-around;
   padding: 8px 20px;
   text-decoration: none;
   transition: 300ms;
+  width: 225px;
 }
 
 .user-data h4 {
@@ -278,6 +287,7 @@ input {
 .Search input {
   background: none;
   border: none;
+  font-size: large;
   outline: none;
   width: 300px;
 }
@@ -531,6 +541,10 @@ input {
     font-size: small;
   }
 
+  .user-data {
+    width: fit-content;
+  }
+
 }
 
 @media screen and ( max-device-width : 650px ) {
@@ -559,4 +573,36 @@ input {
     padding-top: 20px;
   }
 
+}
+
+/* UserCard */
+.UserCard {
+  align-items: center;
+  background: var(--background-elements);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto;
+  outline: var(--outline);
+  padding: 16px;
+  row-gap: 12px;
+  width: 400px;
+}
+
+/* ProfileEdit */
+.ProfileEdit {
+  align-items: center;
+  background: var(--background-elements);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto;
+  outline: var(--outline);
+  padding: 16px;
+  row-gap: 12px;
+  width: 400px;
 }

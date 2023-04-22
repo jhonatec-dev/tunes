@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Player from './components/Player';
 import './css/style.css';
 import './index.css';
+import welcomeAudioUrl from './media/sounds/Welcome.mp3';
 import Album from './pages/Album';
 import Favorites from './pages/Favorites';
 import Login from './pages/Login';
@@ -10,6 +11,8 @@ import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import Search from './pages/Search';
+
+const welcomeAudio = new Audio(welcomeAudioUrl);
 
 // Fallen Angel, come and kiss me kkkk
 class App extends React.Component {
@@ -24,6 +27,7 @@ class App extends React.Component {
   };
 
   playSongClick = (playlist, playing) => {
+    welcomeAudio.pause();
     const { audio, volume } = this.state;
     audio.pause();
     const music = playlist[playing];
@@ -90,7 +94,11 @@ class App extends React.Component {
               exact
               path="/"
               render={
-                (props) => <Login { ...props } setIsLogged={ this.setIsLogged } />
+                (props) => (<Login
+                  { ...props }
+                  setIsLogged={ this.setIsLogged }
+                  audio={ welcomeAudio }
+                />)
               }
             />
             <Route exact path="/search" component={ Search } />

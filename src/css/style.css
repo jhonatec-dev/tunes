@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0..1,0') ;
 
+@import url('https://fonts.cdnfonts.com/css/sf-archery-black') ;
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -10,6 +12,8 @@
 
 
 :root {
+
+  --heigth: 180px;
 
   --background: #150a31;
 
@@ -62,6 +66,13 @@ a {
   font-variation-settings: 'FILL' 0 , 'wght' 400 , 'GRAD' 0 , 'opsz' 48;
 }
 
+
+.main__content {
+  padding: 20px 0;
+  position: absolute;
+  width: 100%;
+}
+
 /* Loading */
 .Loading {
   color: transparent;
@@ -72,6 +83,33 @@ a {
 .text__loading {
   opacity: 0;
   position: absolute;
+}
+
+/* Avatar */
+.AvatarSelect {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.avatar__carrousel {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+}
+
+.avatar__carrousel button {
+  padding: 8px 0;
+}
+
+.avatar__carrousel span {
+  font-size: 40px;
+}
+
+.avatar__carrousel img {
+  width: 100px;
 }
 
 /* Section do conteúdo principal */
@@ -109,12 +147,30 @@ input {
   padding: 4px;
 }
 
+/* Title */
+.Title {
+  font-family: SF Archery Black , sans-serif;
+  font-size: 3rem;
+  padding: 60px;
+  text-align: center;
+  text-shadow: 0 0 16px var(--ligth-color);
+}
+
+.title__gif {
+  filter: brightness(130%);
+  mix-blend-mode: luminosity;
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* Login */
 .Login__container {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  justify-content: center;
+  justify-content: flex-start;
 
 }
 
@@ -129,7 +185,7 @@ input {
   outline: var(--outline);
   padding: 16px;
   row-gap: 12px;
-  width: 300px;
+  width: 400px;
 }
 
 .Login label {
@@ -141,6 +197,7 @@ input {
   font-size: larger;
 }
 
+/* Header */
 .Header {
   display: flex;
   justify-content: space-between;
@@ -164,10 +221,47 @@ input {
 
 .user-data {
   align-items: center;
+  border-radius: 12px;
   color: white;
   display: flex;
-  gap: 12px;
+  gap: 16px;
+  padding: 8px 20px;
   text-decoration: none;
+  transition: 300ms;
+}
+
+.user-data h4 {
+  opacity: 0;
+  transition: 300ms;
+}
+
+.user-data:hover {
+  background: var(--background-elements);
+}
+
+.user-data:hover h4 {
+  opacity: 1;
+}
+
+.user-data:hover img {
+  transform: scale(1.2);
+}
+
+.img__user {
+  transition: 300ms;
+  width: 50px;
+}
+
+.TitleSmall {
+  align-items: center;
+  display: flex;
+  font-family: SF Archery Black , sans-serif;
+  text-shadow: 0 0 12px var(--ligth-color);
+}
+
+.TitleSmall__img {
+  height: 60px;
+  mix-blend-mode: luminosity;
 }
 
 /* Search */
@@ -233,7 +327,7 @@ input {
   top: 40%;
 }
 
-.AlbumCard img {
+.AlbumCard__img {
   width: 60px;
 }
 
@@ -332,9 +426,7 @@ input {
   align-items: center;
   display: flex;
   gap: 8px;
-
-  /* justify-content: flex-start; */
-  padding: 12px;
+  padding: 40px 12px 0;
   width: 100vw;
   z-index: 5;
 }
@@ -352,7 +444,11 @@ input {
   flex-direction: column;
   gap: 8px;
   margin: 4px;
-  width: 130px;
+  width: 200px;
+}
+
+.play__next__buttons .material-symbols-outlined {
+  font-size: 30px;
 }
 
 .time__song {
@@ -369,27 +465,38 @@ input {
 
 .horizontal-slider {
   background: var(--main-color);
-  height: 5px;
+  height: 8px;
 }
 
 .example-thumb {
-  background: green;
-  border-radius: 50%;
-  bottom: 0;
-  padding: 12px;
+  background: var(--background);
+  border-radius: 4px;
+  bottom: -20px;
+  box-shadow: 0 0 4px var(--ligth-color);
+  padding: 2px;
+  text-align: center;
+  width: 48px;
+}
+
+.example-thumb-img {
+  filter: brightness(130%);
+  height: 40px;
+  mix-blend-mode: luminosity;
+  user-select: none;
 }
 
 /* Volume Slider */
 .volume-slider-container {
   align-items: center;
   display: flex;
-  padding: 8px 20px;
 }
 
 .volume-slider-icon {
+  cursor: pointer;
   font-size: 30px;
   margin-right: 2px;
   opacity: 0.5;
+  user-select: none;
 }
 
 .volume-slider {
@@ -410,3 +517,46 @@ input {
   width: 20px;
 }
 
+@media screen and ( max-width : 650px ) {
+
+  .TitleSmall {
+    display: none;
+  }
+
+  .play__next__buttons {
+    width: 130px;
+  }
+
+  .track__info {
+    font-size: small;
+  }
+
+}
+
+@media screen and ( max-device-width : 650px ) {
+
+  :root {
+
+    --heigth: 250px;
+  }
+
+}
+
+@media screen and ( max-device-height : 500px ) {
+
+  :root {
+
+    --heigth: 220px;
+  }
+
+  .Player__container {
+    height: 120px;
+    padding: 0 4px;
+  }
+
+  .Player {
+    padding: 10px;
+    padding-top: 20px;
+  }
+
+}

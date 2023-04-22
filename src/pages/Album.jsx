@@ -37,6 +37,9 @@ export default class Album extends Component {
         title: 'A requisição falhou',
         text: error.message,
         icon: 'error',
+        background: '#3a0767',
+        color: 'white',
+        iconColor: '#8927d5',
       });
     }
   }

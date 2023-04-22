@@ -19,7 +19,7 @@ class App extends React.Component {
     audio: new Audio(),
     music: {},
     isLogged: true,
-    volume: 0.35,
+    volume: 35,
     mainContentStyle: {},
   };
 
@@ -28,7 +28,8 @@ class App extends React.Component {
     audio.pause();
     const music = playlist[playing];
     const newAudio = new Audio(music.previewUrl);
-    newAudio.volume = volume;
+    const reff = 100;
+    newAudio.volume = volume / reff;
     newAudio.onended = this.nextSong;
     this.setState(
       { playlist,
@@ -36,7 +37,7 @@ class App extends React.Component {
         music,
         audio: newAudio,
         mainContentStyle: {
-          height: 'calc(100vh - 180px)',
+          height: 'calc(100vh - var(--heigth))',
           overflowY: 'scroll',
         } },
       () => { newAudio.play(); },
@@ -54,14 +55,15 @@ class App extends React.Component {
     }
     const music = playlist[playing];
     audio = new Audio(music.previewUrl);
-    audio.volume = volume;
+    const reff = 100;
+    audio.volume = volume / reff;
     audio.onended = this.nextSong;
     this.setState({ playlist, playing, music, audio }, () => { audio.play(); });
   };
 
   changeVolume = (volume) => {
     const reff = 100;
-    this.setState({ volume: volume / reff });
+    this.setState({ volume });
     const { audio } = this.state;
     audio.volume = volume / reff;
   };

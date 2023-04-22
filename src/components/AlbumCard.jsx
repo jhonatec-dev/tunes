@@ -8,7 +8,7 @@ export default class AlbumCard extends Component {
     const endOfYear = 4;
     return (
       <div className="AlbumCard">
-        <img src={ artworkUrl100 } alt={ collectionName } />
+        <img className="AlbumCard__img" src={ artworkUrl100 } alt={ collectionName } />
         <span className="material-symbols-outlined">
           open_in_full
         </span>

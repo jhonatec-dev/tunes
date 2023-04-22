@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import AvatarSelect from '../components/AvatarSelect';
 import Button from '../components/Button';
 import Loading from '../components/Loading';
+import Title from '../components/Title';
+import avatars from '../data/avatars';
 import { createUser } from '../services/userAPI';
 
 export default class Login extends Component {
@@ -9,6 +12,7 @@ export default class Login extends Component {
     nameInput: '',
     buttonDisabled: true,
     showLoading: false,
+    selIndexAvatar: 0,
   };
 
   handleNameInputChange = ({ target }) => {
@@ -20,10 +24,10 @@ export default class Login extends Component {
   };
 
   handleLoginClick = async () => {
-    const { nameInput } = this.state;
+    const { nameInput, selIndexAvatar } = this.state;
     const { history, setIsLogged } = this.props;
     this.setState({ showLoading: true });
-    await createUser({ name: nameInput });
+    await createUser({ name: nameInput, image: avatars[selIndexAvatar].img });
     setIsLogged();
     history.push('/search');
   };
@@ -35,14 +39,18 @@ export default class Login extends Component {
     }
   };
 
+  setSelIndexAvatar = (selIndexAvatar) => this.setState({ selIndexAvatar });
+
   render() {
     const { buttonDisabled, showLoading } = this.state;
     return (
       <div data-testid="page-login" className="Login__container">
+        <Title />
         {showLoading
           ? (<Loading />)
           : (
             <div className="Login">
+              <AvatarSelect setSelIndexAvatar={ this.setSelIndexAvatar } />
               <label htmlFor="login-name-input">Digite seu nome para entrar</label>
               <input
                 type="text"

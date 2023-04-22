@@ -57,8 +57,10 @@ export default class MusicCard extends Component {
               `material-symbols-outlined favorite ${isFavorited ? 'isChecked' : ''}`
             }
             onClick={ this.handleFavoritar }
-            role="button"
+            data-testid={ `checkbox-music-${music.trackId}` }
+            role="checkbox"
             aria-hidden
+            aria-checked={ isFavorited }
           >
             {
               showLoading

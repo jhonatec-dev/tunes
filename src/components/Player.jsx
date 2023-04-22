@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ReactSlider from 'react-slider';
+import thumbImg from '../media/images/thumb.gif';
 import Button from './Button';
 
 export default class Player extends Component {
@@ -66,16 +67,18 @@ export default class Player extends Component {
       onAfterChange={ this.onAfterChangeTrackBar }
       max={ durationAudio }
       value={ currentTime }
-      renderThumb={ (props, state) => <div { ...props }>{state.valueNow}</div> }
+      renderThumb={ (props) => (
+        <div { ...props }>
+          <img className="example-thumb-img" src={ thumbImg } alt="thumb" />
+        </div>) }
     />);
   };
 
   getVolumeIconText = (vol) => {
     let result;
-    const reff = 100;
-    const volume = vol * reff;
+    const volume = vol;
     const mute = 0;
-    const down = 30;
+    const down = 35;
     if (volume === mute) {
       result = 'volume_mute';
     } else if (volume < down) {
@@ -87,13 +90,24 @@ export default class Player extends Component {
     return result;
   };
 
+  volIconClick = () => {
+    const { volume, changeVolume } = this.props;
+    const minVol = 35;
+    const newVolume = volume === 0 ? minVol : 0;
+    changeVolume(newVolume);
+  };
+
   renderVolumeTrackBar = () => {
     const { volume, changeVolume } = this.props;
-    const reff = 100;
     const volumeIconText = this.getVolumeIconText(volume);
     return (
       <div className="volume-slider-container">
-        <span className="material-symbols-outlined volume-slider-icon">
+        <span
+          className="material-symbols-outlined volume-slider-icon"
+          onClick={ this.volIconClick }
+          role="button"
+          aria-hidden
+        >
           {
             volumeIconText
           }
@@ -102,9 +116,9 @@ export default class Player extends Component {
           className="volume-slider"
           thumbClassName="volume-thumb"
           trackClassName="volume-track"
-          onChange={ changeVolume }
+          onAfterChange={ changeVolume }
           max={ 100 }
-          value={ volume * reff }
+          value={ volume }
           renderThumb={ (props) => <div { ...props }>J</div> }
         />
       </div>);
@@ -115,21 +129,20 @@ export default class Player extends Component {
     const { time, duration } = this.state;
     return (
       <div className="Player__container">
+        <div className="Slider">
+          {this.renderTrackBar()}
+        </div>
         <div className="Player">
-          <div className="Slider">
-            {this.renderTrackBar()}
-          </div>
           <div>
             <img src={ music.artworkUrl60 } alt={ music.trackName } />
-
           </div>
           <div className="track__info">
             <h3>{music.trackName}</h3>
             <p>{`${music.collectionName} - ${music.artistName}`}</p>
+            <p>{`${time} / ${duration}`}</p>
           </div>
           <div className="play__next__buttons">
-            <p className="time__song">{`${time} / ${duration}`}</p>
-            <div style={ { display: 'flex' } }>
+            <div style={ { display: 'flex', justifyContent: 'flex-end' } }>
               <Button
                 className="material-symbols-outlined Button"
                 text=""
@@ -144,11 +157,11 @@ export default class Player extends Component {
               />
 
             </div>
-
+            {this.renderVolumeTrackBar()}
           </div>
 
         </div>
-        {this.renderVolumeTrackBar()}
+
       </div>
     );
   }

@@ -27,12 +27,12 @@ export default class ProfileEdit extends Component {
     });
   }
 
-  handleSaveButtonClick = async () => {
-    this.setState({ showLoading: true });
-    const { description, email, image, name } = this.state;
-    await updateUser({ description, email, image, name });
+  handleSaveButtonClick = () => {
     const { history } = this.props;
     history.push('/profile');
+    this.setState({ showLoading: true });
+    const { description, email, image, name } = this.state;
+    updateUser({ description, email, image, name });
   };
 
   validateFormValues = () => {
@@ -110,7 +110,7 @@ export default class ProfileEdit extends Component {
                     onClick={ this.handleSaveButtonClick }
                     disabled={ buttonDisabled }
                   >
-                    Enviar
+                    Editar perfil
 
                   </button>
                 </div>

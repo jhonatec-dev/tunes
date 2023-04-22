@@ -35,40 +35,40 @@ export default class MusicCard extends Component {
     const { showLoading, isFavorited } = this.state;
     return (
       <div>
-        {
-          showLoading
-            ? (<Loading />)
-            : (
-              <div
-                data-testid="audio-component"
-                className="MusicCard"
-                onClick={ playSongClick }
-                role="button"
-                aria-hidden
-              >
-                <img src={ music.artworkUrl60 } alt="" />
-                <span className="material-symbols-outlined play">
-                  play_arrow
-                </span>
-                <div className="music__card__track">
-                  <h4>{music.trackName}</h4>
-                  <p>{`${music.collectionName} - ${music.artistName}`}</p>
-                </div>
-                <span
-                  data-testid={ `checkbox-music-${music.trackId}` }
-                  className={
-                    `material-symbols-outlined favorite ${isFavorited ? 'isChecked' : ''}`
-                  }
-                  onClick={ this.handleFavoritar }
-                  role="button"
-                  aria-hidden
-                >
-                  favorite
-                </span>
 
-              </div>
-            )
-        }
+        <div
+          data-testid="audio-component"
+          className="MusicCard"
+          onClick={ playSongClick }
+          role="button"
+          aria-hidden
+        >
+          <img src={ music.artworkUrl60 } alt="" />
+          <span className="material-symbols-outlined play">
+            play_arrow
+          </span>
+          <div className="music__card__track">
+            <h4>{music.trackName}</h4>
+            <p>{`${music.collectionName} - ${music.artistName}`}</p>
+          </div>
+
+          <span
+            className={
+              `material-symbols-outlined favorite ${isFavorited ? 'isChecked' : ''}`
+            }
+            onClick={ this.handleFavoritar }
+            role="button"
+            aria-hidden
+          >
+            {
+              showLoading
+                ? (<Loading />)
+                : 'favorite'
+            }
+          </span>
+
+        </div>
+
       </div>
     );
   }

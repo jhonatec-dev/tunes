@@ -41,19 +41,15 @@ export default class Header extends Component {
                     Favoritos
 
                   </Link>
-                  <Link
-                    data-testid="link-to-profile"
-                    to="/profile"
-                    className="Button"
-                  >
-                    Perfil
-
-                  </Link>
                 </nav>
-                <div className="user-data">
+                <Link
+                  className="user-data"
+                  data-testid="link-to-profile"
+                  to="/profile"
+                >
                   <h4 data-testid="header-user-name">{userName}</h4>
                   <img src={ userImg } alt={ userName } className="img__user" />
-                </div>
+                </Link>
               </div>
             )
         }

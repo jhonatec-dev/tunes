@@ -3,13 +3,21 @@ import React, { Component } from 'react';
 
 export default class Button extends Component {
   render() {
-    const { text } = this.props;
+    const { text, icon } = this.props;
     return (
-      <button { ...this.props }>{text}</button>
+      <button { ...this.props }>
+        {icon.length > 0 && <span className="material-symbols-outlined">{icon}</span>}
+        {text.length > 0 && <span>{text}</span>}
+      </button>
     );
   }
 }
 
+Button.defaultProps = {
+  icon: '',
+};
+
 Button.propTypes = {
   text: PropTypes.string.isRequired,
+  icon: PropTypes.string,
 };

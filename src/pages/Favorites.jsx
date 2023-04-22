@@ -40,7 +40,7 @@ export default class Favorites extends Component {
               <div>
                 {
                   favorites.map((fav, index) => (<MusicCard
-                    key={ fav.trackId }
+                    key={ index }
                     music={ fav }
                     isFavorited
                     playSongClick={ () => this.handlePlayClick(index) }

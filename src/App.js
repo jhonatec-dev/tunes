@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Player from './components/Player';
 import './css/style.css';
+import './index.css';
 import Album from './pages/Album';
 import Favorites from './pages/Favorites';
 import Login from './pages/Login';
@@ -19,6 +20,7 @@ class App extends React.Component {
     music: {},
     isLogged: true,
     volume: 0.35,
+    mainContentStyle: {},
   };
 
   playSongClick = (playlist, playing) => {
@@ -29,7 +31,14 @@ class App extends React.Component {
     newAudio.volume = volume;
     newAudio.onended = this.nextSong;
     this.setState(
-      { playlist, playing, music, audio: newAudio },
+      { playlist,
+        playing,
+        music,
+        audio: newAudio,
+        mainContentStyle: {
+          height: 'calc(100vh - 180px)',
+          overflowY: 'scroll',
+        } },
       () => { newAudio.play(); },
     );
   };
@@ -62,7 +71,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { isLogged, music, audio, playlist, volume } = this.state;
+    const { isLogged, music, audio, playlist, volume, mainContentStyle } = this.state;
     return (
       <main>
         {isLogged && playlist.length > 0
@@ -73,7 +82,7 @@ class App extends React.Component {
           changeVolume={ this.changeVolume }
           nextSong={ this.nextSong }
         /> }
-        <section className="main__content">
+        <section className="main__content" style={ mainContentStyle }>
           <Switch>
             <Route
               exact

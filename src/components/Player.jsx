@@ -8,9 +8,6 @@ export default class Player extends Component {
     time: '',
     duration: '',
     currentTime: 0,
-    // volume: 0.1,
-    // nextButtonClicked: false,
-    // slider: '',
   };
 
   componentDidMount() {
@@ -132,16 +129,22 @@ export default class Player extends Component {
           </div>
           <div className="play__next__buttons">
             <p className="time__song">{`${time} / ${duration}`}</p>
-            <Button
-              className="material-symbols-outlined Button isChecked"
-              text={ audio.paused ? 'play_arrow' : 'pause' }
-              onClick={ this.playPauseMusic }
-            />
-            <Button
-              className="material-symbols-outlined Button isChecked"
-              text="skip_next"
-              onClick={ nextSong }
-            />
+            <div style={ { display: 'flex' } }>
+              <Button
+                className="material-symbols-outlined Button"
+                text=""
+                icon={ audio.paused ? 'play_arrow' : 'pause' }
+                onClick={ this.playPauseMusic }
+              />
+              <Button
+                className="material-symbols-outlined Button"
+                text=""
+                icon="skip_next"
+                onClick={ nextSong }
+              />
+
+            </div>
+
           </div>
 
         </div>

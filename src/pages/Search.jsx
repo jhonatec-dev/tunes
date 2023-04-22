@@ -12,6 +12,7 @@ export default class Search extends Component {
     showLoading: false,
     artist: '',
     albums: [],
+    hasRequested: false,
   };
 
   handleInputChange = ({ target: { value } }) => {
@@ -27,7 +28,8 @@ export default class Search extends Component {
     this.setState({ showLoading: true,
       searchInputText: '',
       buttonDisabled: true,
-      artist: searchInputText });
+      artist: searchInputText,
+      hasRequested: true });
     const albums = await searchAlbumsAPI(artist);
     this.setState({ showLoading: false, albums });
   };
@@ -40,7 +42,8 @@ export default class Search extends Component {
   };
 
   render() {
-    const { buttonDisabled, searchInputText, showLoading, artist, albums } = this.state;
+    const { buttonDisabled, searchInputText, hasRequested,
+      showLoading, artist, albums } = this.state;
     return (
       <div data-testid="page-search">
         <Header />
@@ -50,7 +53,7 @@ export default class Search extends Component {
             type="text"
             name="searchInputText"
             id="search-artist-input"
-            placeholder="Digite o artista/música"
+            placeholder="Digite o artista/álbum"
             onChange={ this.handleInputChange }
             value={ searchInputText }
             onKeyDown={ this.handleKeyDown }
@@ -60,22 +63,29 @@ export default class Search extends Component {
             data-testid="search-artist-button"
             disabled={ buttonDisabled }
             onClick={ this.handleSearchClick }
+            className="material-symbols-outlined"
           >
-            <span className="material-symbols-outlined">
-              search
-            </span>
+
+            search
+
           </button>
         </div>
         {
           showLoading ? (<Loading />)
             : (
               <div className="Albums">
-                <h2>
-                  {
-                    albums.length > 0 ? `Resultado de álbuns de: ${artist}`
-                      : 'Nenhum álbum foi encontrado'
-                  }
-                </h2>
+                {
+                  hasRequested
+                  && (
+                    <h2 className="result__search">
+                      {
+                        albums.length > 0 ? `Resultado de álbuns de: ${artist}`
+                          : 'Nenhum álbum foi encontrado'
+                      }
+                    </h2>
+                  )
+                }
+
                 {albums.map((album, index) => (
                   <Link
                     key={ index }

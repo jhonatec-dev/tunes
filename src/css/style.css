@@ -50,7 +50,7 @@ main {
   transition: 0.25s;
 }
 
-.Button:hover {
+.Button:active {
   filter: brightness(150%);
 }
 
@@ -225,6 +225,7 @@ input {
 }
 
 .MusicCard .favorite {
+  border-radius: 50%;
   padding: 20px;
   position: absolute;
   right: 20px;
@@ -233,6 +234,7 @@ input {
 }
 
 .MusicCard .favorite:hover {
+  text-shadow: 0 0 4px red;
   transform: scale(1.5);
 }
 
@@ -249,29 +251,31 @@ input {
   opacity: 1;
 }
 
+.music__card__track {
+  margin-right: 70px;
+}
+
 
 /* Player */
+.Player__container {
+  background: var(--background-elements);
+  bottom: 0;
+  height: 150px;
+  position: fixed;
+}
+
 .Player {
   align-items: center;
-  background: var(--background-elements);
-  border: 1px yellow solid;
-  bottom: 0;
   display: flex;
   gap: 8px;
-  height: 150px;
   justify-content: flex-start;
   padding: 12px;
-  position: fixed;
   width: 100vw;
   z-index: 5;
 }
 
-.Player img {
+.Player__img {
   height: 60px;
-}
-
-.Player h3 {
-  word-wrap: break-word;
 }
 
 .track__info {
@@ -280,6 +284,8 @@ input {
 
 .play__next__buttons {
   flex-shrink: 0;
+
+  /* height: 100%; */
   width: 130px;
 }
 
@@ -306,11 +312,44 @@ input {
   border-radius: 50%;
   bottom: 0;
   padding: 12px;
-  position: relative;
 }
 
 .example-track {
   background: pink;
   height: 2px;
+}
+
+/* Volume Slider */
+.volume-slider-container {
+  align-items: center;
+  display: flex;
+  padding: 8px 20px;
+}
+
+.volume-slider-icon {
+  font-size: 30px;
+  margin-right: 2px;
+}
+
+.volume-slider {
+  background-color: white;
+  height: 2px;
+  width: 100%;
+}
+
+.volume-thumb {
+  background: white;
+  border-radius: 50%;
+  bottom: -8px;
+  color: transparent;
+  height: 20px;
+  transition: 300ms;
+  user-select: none;
+  width: 20px;
+}
+
+.volume-track {
+  background: gray;
+
 }
 

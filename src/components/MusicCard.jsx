@@ -50,7 +50,10 @@ export default class MusicCard extends Component {
                 <span className="material-symbols-outlined play">
                   play_arrow
                 </span>
-                <h4>{music.trackName}</h4>
+                <div className="music__card__track">
+                  <h4>{music.trackName}</h4>
+                  <p>{`${music.collectionName} - ${music.artistName}`}</p>
+                </div>
                 <span
                   data-testid={ `checkbox-music-${music.trackId}` }
                   className={
@@ -80,6 +83,8 @@ MusicCard.propTypes = {
   music: PropTypes.shape({
     previewUrl: PropTypes.string,
     trackName: PropTypes.string,
+    collectionName: PropTypes.string,
+    artistName: PropTypes.string,
     trackId: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,

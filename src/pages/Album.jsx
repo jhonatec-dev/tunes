@@ -12,6 +12,7 @@ export default class Album extends Component {
     musics: [],
     artistName: '',
     albumName: '',
+    year: '',
     artworkUrl100: '',
     favorites: [],
     showLoading: true,
@@ -22,12 +23,14 @@ export default class Album extends Component {
     try {
       const favorites = await getFavoriteSongs();
       let musics = await getMusics(id);
+      const endOfYear = 4;
       musics = musics.filter(({ trackName }) => trackName);
       this.setState({ musics,
         favorites,
         showLoading: false,
         artistName: musics[0].artistName,
         albumName: musics[0].collectionName,
+        year: musics[0].releaseDate.slice(0, endOfYear),
         artworkUrl100: musics[0].artworkUrl100 });
     } catch (error) {
       Swal.fire({
@@ -46,7 +49,7 @@ export default class Album extends Component {
   };
 
   render() {
-    const { musics, artistName, albumName,
+    const { musics, artistName, albumName, year,
       showLoading, favorites, artworkUrl100 } = this.state;
     return (
       <div data-testid="page-album">
@@ -58,8 +61,9 @@ export default class Album extends Component {
                 <div className="album__data">
                   <img src={ artworkUrl100 } alt={ albumName } />
                   <div>
-                    <h3 data-testid="artist-name">{artistName}</h3>
-                    <h4 data-testid="album-name">{albumName}</h4>
+                    <h2 data-testid="artist-name">{artistName}</h2>
+                    <h3 data-testid="album-name">{albumName}</h3>
+                    <h4>{year}</h4>
                   </div>
 
                 </div>

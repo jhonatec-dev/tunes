@@ -13,7 +13,7 @@ export default class AlbumCard extends Component {
           open_in_full
         </span>
         <div>
-          <h4>{artistName}</h4>
+          <h4>{collectionName}</h4>
           <p>
             {
               `${artistName} - ${releaseDate.slice(0, endOfYear)} - ${trackCount} músicas`

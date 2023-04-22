@@ -18,13 +18,16 @@ class App extends React.Component {
     audio: new Audio(),
     music: {},
     isLogged: true,
+    volume: 0.35,
   };
 
   playSongClick = (playlist, playing) => {
-    const { audio } = this.state;
+    const { audio, volume } = this.state;
     audio.pause();
     const music = playlist[playing];
     const newAudio = new Audio(music.previewUrl);
+    newAudio.volume = volume;
+    newAudio.onended = this.nextSong;
     this.setState(
       { playlist, playing, music, audio: newAudio },
       () => { newAudio.play(); },
@@ -32,7 +35,7 @@ class App extends React.Component {
   };
 
   nextSong = () => {
-    const { playlist } = this.state;
+    const { playlist, volume } = this.state;
     let { playing, audio } = this.state;
     audio.pause();
     if (playing < playlist.length - 1) {
@@ -42,7 +45,16 @@ class App extends React.Component {
     }
     const music = playlist[playing];
     audio = new Audio(music.previewUrl);
+    audio.volume = volume;
+    audio.onended = this.nextSong;
     this.setState({ playlist, playing, music, audio }, () => { audio.play(); });
+  };
+
+  changeVolume = (volume) => {
+    const reff = 100;
+    this.setState({ volume: volume / reff });
+    const { audio } = this.state;
+    audio.volume = volume / reff;
   };
 
   setIsLogged = () => {
@@ -50,12 +62,15 @@ class App extends React.Component {
   };
 
   render() {
-    const { isLogged, music, audio, playlist } = this.state;
+    const { isLogged, music, audio, playlist, volume } = this.state;
     return (
       <main>
-        {isLogged && playlist.length > 0 && <Player
+        {isLogged && playlist.length > 0
+        && <Player
           music={ music }
           audio={ audio }
+          volume={ volume }
+          changeVolume={ this.changeVolume }
           nextSong={ this.nextSong }
         /> }
         <section className="main__content">

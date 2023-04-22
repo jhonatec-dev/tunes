@@ -38,6 +38,7 @@ export default class Profile extends Component {
                   data-testid="profile-image"
                   src={ image }
                   alt={ name }
+                  className="UserCard__img"
                 />
                 <h3>Nome</h3>
                 <h2>{name}</h2>

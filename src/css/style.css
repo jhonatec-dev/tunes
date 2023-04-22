@@ -116,6 +116,7 @@ body {
 }
 
 .avatar__carrousel img {
+  border-radius: 50%;
   width: 100px;
 }
 
@@ -257,6 +258,7 @@ input {
 }
 
 .img__user {
+  border-radius: 50%;
   transition: 300ms;
   width: 50px;
 }
@@ -589,6 +591,10 @@ input {
   padding: 16px;
   row-gap: 12px;
   width: 400px;
+}
+
+.UserCard__img {
+  border-radius: 50%;
 }
 
 /* ProfileEdit */

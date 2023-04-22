@@ -116,7 +116,7 @@ export default class Player extends Component {
           className="volume-slider"
           thumbClassName="volume-thumb"
           trackClassName="volume-track"
-          onAfterChange={ changeVolume }
+          onChange={ changeVolume }
           max={ 100 }
           value={ volume }
           renderThumb={ (props) => <div { ...props }>J</div> }

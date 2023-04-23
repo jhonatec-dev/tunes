@@ -77,7 +77,7 @@ export default class Login extends Component {
                 onClick={ this.handleLoginClick }
                 text="Entrar"
                 icon="login"
-                className="Button"
+                className="Button Login__button"
               />
 
             </div>

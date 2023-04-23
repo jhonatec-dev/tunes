@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import MusicCard from '../components/MusicCard';
+import Title from '../components/Title';
 import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 export default class Favorites extends Component {
@@ -30,22 +31,31 @@ export default class Favorites extends Component {
 
   render() {
     const { showLoading, favorites } = this.state;
-
+    const { match: { url } } = this.props;
     return (
       <div data-testid="page-favorites">
-        <Header />
+        <Header url={ url } />
         {
           showLoading ? (<Loading />)
             : (
               <div>
                 {
-                  favorites.map((fav, index) => (<MusicCard
-                    key={ index }
-                    music={ fav }
-                    isFavorited
-                    playSongClick={ () => this.handlePlayClick(index) }
-                    handleRemoveFromFavorites={ this.handleFavorites }
-                  />))
+                  favorites.length === 0 ? <Title
+                    text="Você ainda não possui nenhum favorito salvo!"
+                  />
+                    : (
+                      <div>
+                        {
+                          favorites.map((fav, index) => (<MusicCard
+                            key={ index }
+                            music={ fav }
+                            isFavorited
+                            playSongClick={ () => this.handlePlayClick(index) }
+                            handleRemoveFromFavorites={ this.handleFavorites }
+                          />))
+                        }
+                      </div>
+                    )
                 }
               </div>
             )
@@ -57,4 +67,7 @@ export default class Favorites extends Component {
 
 Favorites.propTypes = {
   playSongClick: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    url: PropTypes.string,
+  }).isRequired,
 };

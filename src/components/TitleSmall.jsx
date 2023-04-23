@@ -6,7 +6,7 @@ export default class TitleSmall extends Component {
     return (
       <div className="TitleSmall">
         <img src={ gif } alt="marching" className="TitleSmall__img" />
-        <h2>The Tunes Parade</h2>
+        <h3>The Tunes Parade</h3>
       </div>
     );
   }

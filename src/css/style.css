@@ -70,14 +70,12 @@ a {
 
 body {
   font-family: Eagle Ligth , sans-serif;
-
-  /* font-size: 18px; */
+  overflow-x: hidden;
 }
 
 .main__content {
+  overflow-x: hidden;
   padding-bottom: 40px;
-  position: absolute;
-  width: 100%;
 }
 
 /* Loading */

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
@@ -16,33 +17,37 @@ export default class Header extends Component {
   }
 
   render() {
+    const { url } = this.props;
     const { showLoading, user } = this.state;
     return (
       <div data-testid="header-component">
-        {
-          showLoading
-            ? (<Loading />)
-            : (
-              <div className="Header">
-                <nav>
-                  <Link
-                    data-testid="link-to-search"
-                    to="/search"
-                    className="Button"
-                  >
-                    Pesquisar
+        <div className="Header">
+          <nav>
+            <Link
+              data-testid="link-to-search"
+              to="/search"
+              className={ url.includes('search') ? 'actual__page' : '' }
+            >
+              <TitleSmall />
 
-                  </Link>
-                  <Link
-                    data-testid="link-to-favorites"
-                    to="/favorites"
-                    className="Button"
-                  >
-                    Favoritos
+            </Link>
+            <Link
+              data-testid="link-to-favorites"
+              to="/favorites"
+              className={
+                `Header__favorites ${
+                  url.includes('favorites') ? 'actual__page' : ''} `
+              }
+            >
+              <span className="material-symbols-outlined isChecked">favorite</span>
+              <h3>Favoritos</h3>
+            </Link>
+          </nav>
 
-                  </Link>
-                </nav>
-                <TitleSmall />
+          {
+            showLoading
+              ? (<Loading />)
+              : (
                 <Link
                   className="user-data"
                   data-testid="link-to-profile"
@@ -51,10 +56,18 @@ export default class Header extends Component {
                   <h4 data-testid="header-user-name">{user.name}</h4>
                   <img src={ user.image } alt={ user.name } className="img__user" />
                 </Link>
-              </div>
-            )
-        }
+              )
+          }
+        </div>
       </div>
     );
   }
 }
+
+Header.defaultProps = {
+  url: '',
+};
+
+Header.propTypes = {
+  url: PropTypes.string,
+};

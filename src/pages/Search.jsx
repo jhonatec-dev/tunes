@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import AlbumCard from '../components/AlbumCard';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
+import Title from '../components/Title';
 import { albumsJhon } from '../data/hidden';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
@@ -48,11 +50,12 @@ export default class Search extends Component {
   };
 
   render() {
+    const { match } = this.props;
     const { buttonDisabled, searchInputText, hasRequested,
       showLoading, artist, albums } = this.state;
     return (
       <div data-testid="page-search">
-        <Header />
+        <Header url={ match.url } />
         <div className="Search">
           <input
             data-testid="search-artist-input"
@@ -81,15 +84,15 @@ export default class Search extends Component {
             : (
               <div className="Albums">
                 {
-                  hasRequested
-                  && (
-                    <h2 className="result__search">
-                      {
-                        albums.length > 0 ? `Resultado de álbuns de: ${artist}`
-                          : 'Nenhum álbum foi encontrado'
-                      }
-                    </h2>
-                  )
+                  !hasRequested ? <Title text="Pesquise seus artistas favoritos" />
+                    : (
+                      <h2 className="result__search">
+                        {
+                          albums.length > 0 ? `Resultado de álbuns de: ${artist}`
+                            : 'Nenhum álbum foi encontrado'
+                        }
+                      </h2>
+                    )
                 }
 
                 {albums.map((album, index) => (
@@ -109,3 +112,9 @@ export default class Search extends Component {
     );
   }
 }
+
+Search.propTypes = {
+  match: PropTypes.shape({
+    url: PropTypes.string,
+  }).isRequired,
+};

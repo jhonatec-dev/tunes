@@ -75,7 +75,7 @@ body {
 }
 
 .main__content {
-  padding: 20px 0;
+  padding-bottom: 40px;
   position: absolute;
   width: 100%;
 }
@@ -83,7 +83,7 @@ body {
 /* Loading */
 .Loading {
   color: transparent;
-  margin: 10px auto;
+  margin: 10px;
   text-align: center;
 }
 
@@ -98,32 +98,32 @@ body {
   display: flex;
   gap: 20px;
   justify-content: space-between;
-  width: 300px;
+  width: 100%;
 }
 
 .avatar__carrousel {
-  align-items: center;
   display: flex;
-  gap: 4px;
+  gap: 12px;
 }
 
-.avatar__carrousel button {
-  padding: 8px 0;
+.avatar__carrousel > button {
+  background: var(--background-elements);
+  padding: 0;
 }
 
-.avatar__carrousel span {
-  font-size: 40px;
+.AvatarSelect__button span {
+  font-size: 50px;
 }
 
 .avatar__carrousel img {
   border-radius: 50%;
-  width: 100px;
+  width: 70px;
 }
 
 /* Section do conteúdo principal */
 .Button {
   align-items: center;
-  background: var(--background-elements);
+  background: var(--main-color);
   border: none;
   border-radius: 8px;
   color: white;
@@ -157,15 +157,22 @@ input {
 
 /* Title */
 .Title {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   font-family: SF Archery Black , sans-serif;
-  font-size: 3rem;
+  font-size: 2.5rem;
+  justify-content: center;
   padding: 60px;
+  row-gap: 24px;
   text-align: center;
   text-shadow: 0 0 16px var(--ligth-color);
+
 }
 
 .title__gif {
   filter: brightness(130%);
+  height: fit-content;
   mix-blend-mode: luminosity;
   pointer-events: none;
   user-select: none;
@@ -205,7 +212,7 @@ input {
   font-size: larger;
 }
 
-.Login button > span {
+.Login__button > span {
   font-size: 24px;
 }
 
@@ -213,22 +220,41 @@ input {
 .Header {
   display: flex;
   justify-content: space-between;
-  padding: 12px;
+  margin-bottom: 24px;
+  padding: 8px;
 }
 
 .Header nav {
-  align-items: center;
+
+  /* align-items: center; */
   display: flex;
   gap: 12px;
   justify-content: space-evenly;
 }
 
 .Header nav a {
-  background: var(--background-elements);
+
+  /* background: var(--background-elements); */
   border-radius: 8px;
   color: white;
   padding: 12px;
   text-decoration: none;
+}
+
+.Header nav a:hover {
+  background: var(--background-elements);
+}
+
+.actual__page {
+  background: var(--background-elements);
+}
+
+.Header__favorites {
+  align-items: center;
+  display: flex;
+  font-family: SF Archery Black , sans-serif;
+  font-size: larger;
+  gap: 8px;
 }
 
 .user-data {
@@ -293,9 +319,9 @@ input {
 .Search input {
   background: none;
   border: none;
-  font-size: large;
+  font-size: 24px;
   outline: none;
-  width: 300px;
+  width: 450px;
 }
 
 .Search button {
@@ -541,10 +567,6 @@ input {
 }
 
 @media screen and ( max-width : 650px ) {
-
-  .TitleSmall {
-    display: none;
-  }
 
   .play__next__buttons {
     width: 130px;

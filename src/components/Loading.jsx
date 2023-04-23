@@ -6,7 +6,7 @@ export default class Loading extends Component {
     return (
       <div className="Loading">
         <p className="text__loading">Carregando...</p>
-        <ScaleLoader color="#710dbd" />
+        <ScaleLoader color="#8927d5" />
       </div>
     );
   }

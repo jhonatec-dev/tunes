@@ -42,9 +42,17 @@ export default class AvatarSelect extends Component {
           <p>{avatars[selIndex].name}</p>
         </div>
         <div className="avatar__carrousel">
-          <Button icon="chevron_left" className="Button" onClick={ this.prevImg } />
+          <Button
+            icon="chevron_left"
+            className="Button AvatarSelect__button"
+            onClick={ this.prevImg }
+          />
           <img src={ avatars[selIndex].img } alt="avatar" />
-          <Button icon="chevron_right" className="Button" onClick={ this.nextImg } />
+          <Button
+            icon="chevron_right"
+            className="Button AvatarSelect__button"
+            onClick={ this.nextImg }
+          />
         </div>
       </div>
     );

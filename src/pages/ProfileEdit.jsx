@@ -1,49 +1,52 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import validator from 'validator';
+import AvatarSelect from '../components/AvatarSelect';
+import Button from '../components/Button';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
+import avatars from '../data/avatars';
 import { getUser, updateUser } from '../services/userAPI';
 
 export default class ProfileEdit extends Component {
   state = {
     name: '',
     description: '',
-    image: '',
     email: '',
     showLoading: true,
     buttonDisabled: true,
+    selIndexAvatar: 0,
   };
 
   async componentDidMount() {
     const { name = '', description = '', image = '', email = '' } = await getUser();
-
+    const selIndexAvatar = avatars.findIndex((av) => av.img === image) || 0;
     this.setState({
       name,
       description,
-      image,
+      selIndexAvatar,
       email,
       showLoading: false,
     });
   }
 
-  handleSaveButtonClick = async () => {
-    this.setState({ showLoading: true });
-    const { description, email, image, name } = this.state;
-    await updateUser({ description, email, image, name });
+  handleSaveButtonClick = () => {
     const { history } = this.props;
     history.push('/profile');
+    this.setState({ showLoading: true });
+    const { description, email, name, selIndexAvatar } = this.state;
+    updateUser({ description, email, image: avatars[selIndexAvatar].img, name });
   };
 
   validateFormValues = () => {
-    const { name, description, image, email } = this.state;
+    const { name, description, email } = this.state;
     const valName = !validator.isEmpty(name);
     const valEmail = validator.isEmail(email);
     const valDescription = !validator.isEmpty(description);
-    const valImage = !validator.isEmpty(image);
+    // const valImage = !validator.isEmpty(image);
 
     this.setState({
-      buttonDisabled: !(valName && valEmail && valDescription && valImage),
+      buttonDisabled: !(valName && valEmail && valDescription),
     });
   };
 
@@ -54,9 +57,14 @@ export default class ProfileEdit extends Component {
     this.validateFormValues();
   };
 
+  setSelIndexAvatar = (selIndexAvatar) => {
+    this.setState({ selIndexAvatar });
+    this.validateFormValues();
+  };
+
   render() {
-    const { showLoading, buttonDisabled,
-      name, description, image, email } = this.state;
+    const { showLoading, buttonDisabled, selIndexAvatar,
+      name, description, email } = this.state;
     return (
       <div data-testid="page-profile-edit">
         <Header />
@@ -64,7 +72,7 @@ export default class ProfileEdit extends Component {
           showLoading ? <Loading />
             : (
               <div>
-                <div className="form">
+                <div className="ProfileEdit">
                   <label htmlFor="edit-input-name">Nome</label>
                   <input
                     type="text"
@@ -95,7 +103,11 @@ export default class ProfileEdit extends Component {
                     required
                     onChange={ this.handleInputChange }
                   />
-                  <label htmlFor="edit-input-image">Imagem</label>
+                  <AvatarSelect
+                    setSelIndexAvatar={ this.setSelIndexAvatar }
+                    initialIndex={ selIndexAvatar }
+                  />
+                  {/* <label htmlFor="edit-input-image">Imagem</label>
                   <input
                     type="text"
                     name="image"
@@ -104,15 +116,15 @@ export default class ProfileEdit extends Component {
                     data-testid="edit-input-image"
                     required
                     onChange={ this.handleInputChange }
-                  />
-                  <button
+                  /> */}
+                  <Button
                     data-testid="edit-button-save"
                     onClick={ this.handleSaveButtonClick }
                     disabled={ buttonDisabled }
-                  >
-                    Enviar
-
-                  </button>
+                    text="Salvar"
+                    icon="save"
+                    className="Button"
+                  />
                 </div>
               </div>
             )

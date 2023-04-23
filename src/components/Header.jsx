@@ -2,33 +2,55 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
+import TitleSmall from './TitleSmall';
 
 export default class Header extends Component {
   state = {
     showLoading: true,
-    userName: '',
+    user: '',
   };
 
   async componentDidMount() {
-    const { name } = await getUser();
-    this.setState({ userName: name, showLoading: false });
+    const user = await getUser();
+    this.setState({ user, showLoading: false });
   }
 
   render() {
-    const { showLoading, userName } = this.state;
+    const { showLoading, user } = this.state;
     return (
       <div data-testid="header-component">
         {
           showLoading
             ? (<Loading />)
             : (
-              <div>
+              <div className="Header">
                 <nav>
-                  <Link data-testid="link-to-search" to="/search">Pesquisar</Link>
-                  <Link data-testid="link-to-favorites" to="/favorites">Favoritos</Link>
-                  <Link data-testid="link-to-profile" to="/profile">Perfil</Link>
+                  <Link
+                    data-testid="link-to-search"
+                    to="/search"
+                    className="Button"
+                  >
+                    Pesquisar
+
+                  </Link>
+                  <Link
+                    data-testid="link-to-favorites"
+                    to="/favorites"
+                    className="Button"
+                  >
+                    Favoritos
+
+                  </Link>
                 </nav>
-                <h1 data-testid="header-user-name">{`Bem-vindo ${userName}`}</h1>
+                <TitleSmall />
+                <Link
+                  className="user-data"
+                  data-testid="link-to-profile"
+                  to="/profile"
+                >
+                  <h4 data-testid="header-user-name">{user.name}</h4>
+                  <img src={ user.image } alt={ user.name } className="img__user" />
+                </Link>
               </div>
             )
         }

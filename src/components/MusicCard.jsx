@@ -14,59 +14,63 @@ export default class MusicCard extends Component {
     this.setState({ isFavorited });
   }
 
-  handleFavoritar = async ({ target: { checked } }) => {
+  handleFavoritar = async (event) => {
+    const { target: { className } } = event;
+    event.stopPropagation();
     this.setState({ showLoading: true });
     const { music, handleRemoveFromFavorites } = this.props;
-    if (checked) {
-      await addSong(music);
-      this.setState({ isFavorited: true });
-    } else {
+    if (className.includes('isChecked')) {
       await removeSong(music);
       this.setState({ isFavorited: false });
+    } else {
+      await addSong(music);
+      this.setState({ isFavorited: true });
     }
     this.setState({ showLoading: false });
     handleRemoveFromFavorites();
   };
 
   render() {
-    const { music } = this.props;
+    const { music, playSongClick } = this.props;
     const { showLoading, isFavorited } = this.state;
     return (
       <div>
-        {
-          showLoading
-            ? (<Loading />)
-            : (
-              <div>
-                <h3>{music.trackName}</h3>
-                <audio
-                  data-testid="audio-component"
-                  src={ music.previewUrl }
-                  controls
-                >
-                  <track kind="captions" />
-                  O seu navegador não suporta o elemento
-                  {' '}
-                  {' '}
-                  <code>audio</code>
-                  .
-                </audio>
-                <label
-                  htmlFor={ music.trackId }
-                  data-testid={ `checkbox-music-${music.trackId}` }
-                >
-                  Favorita
-                  <input
-                    type="checkbox"
-                    name=""
-                    checked={ isFavorited }
-                    id={ music.trackId }
-                    onChange={ this.handleFavoritar }
-                  />
-                </label>
-              </div>
-            )
-        }
+
+        <div
+          data-testid="audio-component"
+          className="MusicCard"
+          onClick={ playSongClick }
+          role="button"
+          aria-hidden
+        >
+          <img src={ music.artworkUrl60 } alt="" />
+          <span className="material-symbols-outlined play">
+            play_arrow
+          </span>
+          <div className="music__card__track">
+            <h4>{music.trackName}</h4>
+            <p>{`${music.collectionName} - ${music.artistName}`}</p>
+          </div>
+
+          <span
+            className={
+              `material-symbols-outlined favorite ${isFavorited ? 'isChecked' : ''}`
+            }
+            onClick={ this.handleFavoritar }
+            data-testid={ `checkbox-music-${music.trackId}` }
+            role="checkbox"
+            aria-hidden
+            aria-checked={ isFavorited }
+          >
+            {
+              showLoading
+                ? (<Loading />)
+                : 'favorite'
+            }
+          </span>
+
+        </div>
+
       </div>
     );
   }
@@ -74,17 +78,22 @@ export default class MusicCard extends Component {
 
 MusicCard.defaultProps = {
   handleRemoveFromFavorites: () => {},
+  playSongClick: () => {},
 };
 
 MusicCard.propTypes = {
   music: PropTypes.shape({
     previewUrl: PropTypes.string,
     trackName: PropTypes.string,
+    collectionName: PropTypes.string,
+    artistName: PropTypes.string,
     trackId: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
     ]),
+    artworkUrl60: PropTypes.string,
   }).isRequired,
   isFavorited: PropTypes.bool.isRequired,
   handleRemoveFromFavorites: PropTypes.func,
+  playSongClick: PropTypes.func,
 };

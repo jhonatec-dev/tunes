@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import MusicCard from '../components/MusicCard';
+import { tracksJhon } from '../data/hidden';
 import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 import getMusics from '../services/musicsAPI';
 
@@ -22,7 +23,12 @@ export default class Album extends Component {
     const { match: { params: { id } } } = this.props;
     try {
       const favorites = await getFavoriteSongs();
-      let musics = await getMusics(id);
+      let musics;
+      if (id === 'jhonatec') {
+        musics = tracksJhon;
+      } else {
+        musics = await getMusics(id);
+      }
       const endOfYear = 4;
       musics = musics.filter(({ trackName }) => trackName);
       this.setState({ musics,

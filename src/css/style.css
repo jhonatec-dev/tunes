@@ -192,7 +192,7 @@ input {
   flex-direction: column;
   outline: var(--outline);
   padding: 16px;
-  row-gap: 12px;
+  row-gap: 20px;
   width: 400px;
 }
 
@@ -203,6 +203,10 @@ input {
 
 .Login input {
   font-size: larger;
+}
+
+.Login button > span {
+  font-size: 24px;
 }
 
 /* Header */
@@ -221,20 +225,20 @@ input {
 
 .Header nav a {
   background: var(--background-elements);
-  border-radius: 4px;
+  border-radius: 8px;
   color: white;
-  padding: 4px 12px;
+  padding: 12px;
   text-decoration: none;
 }
 
 .user-data {
   align-items: center;
-  border-radius: 12px;
+  border-radius: 8px;
   color: white;
   display: flex;
   gap: 16px;
   justify-content: space-around;
-  padding: 8px 20px;
+  padding: 8px;
   text-decoration: none;
   transition: 300ms;
   width: 225px;
@@ -332,7 +336,8 @@ input {
 
 }
 
-.AlbumCard span {
+.AlbumCard__icon {
+  font-variation-settings: 'FILL' 1;
   left: 30px;
   opacity: 0;
   position: absolute;
@@ -384,10 +389,11 @@ input {
 
 .MusicCard .play {
   font-size: 30px;
-  left: 30px;
+  font-variation-settings: 'FILL' 1;
+  left: 25px;
   opacity: 0;
   position: absolute;
-  top: 40%;
+  top: 30%;
   transition: 300ms;
 }
 
@@ -428,7 +434,7 @@ input {
 
 /* Player */
 .Player__container {
-  background: var(--background-elements);
+  background: #200e4c;
   bottom: 0;
   height: 150px;
   position: fixed;
@@ -459,8 +465,13 @@ input {
   width: 200px;
 }
 
+.play__next__buttons .Button {
+  background: var(--main-color);
+}
+
 .play__next__buttons .material-symbols-outlined {
   font-size: 30px;
+  font-variation-settings: 'FILL' 1;
 }
 
 .time__song {
@@ -482,7 +493,7 @@ input {
 
 .example-thumb {
   background: var(--background);
-  border-radius: 4px;
+  border-radius: 50%;
   bottom: -20px;
   box-shadow: 0 0 4px var(--ligth-color);
   padding: 2px;
@@ -537,6 +548,10 @@ input {
 
   .play__next__buttons {
     width: 130px;
+  }
+
+  .play__next__buttons .Button {
+    padding: 8px;
   }
 
   .track__info {

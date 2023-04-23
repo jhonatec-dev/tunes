@@ -9,7 +9,7 @@ export default class AlbumCard extends Component {
     return (
       <div className="AlbumCard">
         <img className="AlbumCard__img" src={ artworkUrl100 } alt={ collectionName } />
-        <span className="material-symbols-outlined">
+        <span className="material-symbols-outlined AlbumCard__icon">
           open_in_full
         </span>
         <div>

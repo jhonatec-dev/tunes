@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import AlbumCard from '../components/AlbumCard';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
+import { albumsJhon } from '../data/hidden';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
 export default class Search extends Component {
@@ -30,7 +31,12 @@ export default class Search extends Component {
       buttonDisabled: true,
       artist: searchInputText,
       hasRequested: true });
-    const albums = await searchAlbumsAPI(artist);
+    let albums;
+    if (searchInputText.toLowerCase().includes('jhonatec')) {
+      albums = albumsJhon;
+    } else {
+      albums = await searchAlbumsAPI(artist);
+    }
     this.setState({ showLoading: false, albums });
   };
 

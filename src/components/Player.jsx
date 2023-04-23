@@ -142,7 +142,7 @@ export default class Player extends Component {
             <p>{`${time} / ${duration}`}</p>
           </div>
           <div className="play__next__buttons">
-            <div style={ { display: 'flex', justifyContent: 'flex-end' } }>
+            <div style={ { display: 'flex', justifyContent: 'space-around' } }>
               <Button
                 className="material-symbols-outlined Button"
                 text=""

@@ -357,6 +357,7 @@ input {
   gap: 12px;
   padding: 12px;
   position: relative;
+  transition: 300ms;
 
 }
 

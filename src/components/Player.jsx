@@ -1,7 +1,6 @@
+import { Slider } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import ReactSlider from 'react-slider';
-import thumbImg from '../media/images/thumb.gif';
 import Button from './Button';
 
 export default class Player extends Component {
@@ -51,7 +50,7 @@ export default class Player extends Component {
     }
   };
 
-  onAfterChangeTrackBar = (value) => {
+  onAfterChangeTrackBar = (_ev, value) => {
     const { audio } = this.props;
     audio.currentTime = value;
   };
@@ -60,17 +59,18 @@ export default class Player extends Component {
     const { audio } = this.props;
     const { currentTime } = this.state;
     const durationAudio = Number.isNaN(audio.duration) ? 0 : Math.floor(audio.duration);
-    return (<ReactSlider
-      className="horizontal-slider"
-      thumbClassName="example-thumb"
-      trackClassName="example-track"
-      onAfterChange={ this.onAfterChangeTrackBar }
+    return (<Slider
+      className="Track"
+      onChangeCommitted={ this.onAfterChangeTrackBar }
       max={ durationAudio }
+      min={ 0 }
+      step={ 1 }
       value={ currentTime }
-      renderThumb={ (props) => (
-        <div { ...props }>
-          <img className="example-thumb-img" src={ thumbImg } alt="thumb" />
-        </div>) }
+      sx={ { color: 'var(--ligth-color)',
+        position: 'absolute',
+        top: '0',
+        height: '8px',
+        marginTop: '-14px' } }
     />);
   };
 
@@ -112,15 +112,14 @@ export default class Player extends Component {
             volumeIconText
           }
         </span>
-        <ReactSlider
-          className="volume-slider"
-          thumbClassName="volume-thumb"
-          trackClassName="volume-track"
-          onChange={ changeVolume }
-          max={ 100 }
+
+        <Slider
+          aria-label="Volume"
           value={ volume }
-          renderThumb={ (props) => <div { ...props }>J</div> }
+          onChange={ changeVolume }
+          sx={ { color: 'var(--ligth-color)' } }
         />
+
       </div>);
   };
 
@@ -140,6 +139,7 @@ export default class Player extends Component {
             <h3>{music.trackName}</h3>
             <p>{`${music.collectionName} - ${music.artistName}`}</p>
             <p>{`${time} / ${duration}`}</p>
+
           </div>
           <div className="play__next__buttons">
             <div style={ { display: 'flex', justifyContent: 'space-around' } }>

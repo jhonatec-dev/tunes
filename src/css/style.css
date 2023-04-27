@@ -385,6 +385,12 @@ input {
   opacity: 1;
 }
 
+/* Favorites */
+.Favorites {
+  margin: 0 auto;
+  max-width: 900px;
+}
+
 /* Detailed Album */
 .AlbumDetailed {
   margin: 0 auto;
@@ -457,6 +463,11 @@ input {
   margin-right: 70px;
 }
 
+.favorite--container {
+  position: absolute;
+  right: 10px;
+}
+
 /* Player */
 .Player__container {
   background: #200e4c;
@@ -506,15 +517,6 @@ input {
 
 .time__song {
   text-align: center;
-}
-
-.Track .css-eg0mwd-MuiSlider-thumb {
-  background-image: url('../media/images/thumb.gif');
-  background-repeat: no-repeat;
-  background-size: contain;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.412);
-  height: 40px;
-  width: 40px;
 }
 
 @media screen and ( max-width : 650px ) {

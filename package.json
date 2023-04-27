@@ -52,6 +52,7 @@
   },
   "devDependencies": {
     "@trybe/eslint-config-frontend": "^1.7.1",
+    "postcss-safe-important": "^1.2.1",
     "prop-types": "^15.8.1",
     "stylelint": "^14.11.0",
     "stylelint-config-standard": "^28.0.0",

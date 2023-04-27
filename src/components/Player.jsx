@@ -94,7 +94,7 @@ export default class Player extends Component {
     const { volume, changeVolume } = this.props;
     const minVol = 35;
     const newVolume = volume === 0 ? minVol : 0;
-    changeVolume(newVolume);
+    changeVolume(undefined, newVolume);
   };
 
   renderVolumeTrackBar = () => {
@@ -117,7 +117,7 @@ export default class Player extends Component {
           aria-label="Volume"
           value={ volume }
           onChange={ changeVolume }
-          sx={ { color: 'var(--ligth-color)' } }
+          sx={ { color: 'var(--ligth-color)', marginLeft: '10px' } }
         />
 
       </div>);

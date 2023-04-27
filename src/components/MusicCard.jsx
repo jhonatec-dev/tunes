@@ -51,27 +51,26 @@ export default class MusicCard extends Component {
             <h4>{music.trackName}</h4>
             <p>{`${music.collectionName} - ${music.artistName}`}</p>
           </div>
-
-          {
-            showLoading
-              ? (<Loading />)
-              : (
-                <Checkbox
-                  className="CheckFavorite"
-                  onChange={ this.handleFavoritar }
-                  icon={ <FavoriteBorder /> }
-                  checkedIcon={ <Favorite sx={ { color: 'var(--ligth-color)' } } /> }
-                  checked={ isFavorited }
-                  sx={ { color: 'var(--ligth-color)',
-                    position: 'absolute',
-                    right: '0',
-                    transition: '300ms',
-                    ':hover': {
-                      transform: 'scale(1.3)',
-                    } } }
-                />
-              )
-          }
+          <div className="favorite--container">
+            {
+              showLoading
+                ? (<Loading />)
+                : (
+                  <Checkbox
+                    className="CheckFavorite"
+                    onChange={ this.handleFavoritar }
+                    icon={ <FavoriteBorder /> }
+                    checkedIcon={ <Favorite sx={ { color: 'var(--ligth-color)' } } /> }
+                    checked={ isFavorited }
+                    sx={ { color: 'var(--ligth-color)',
+                      transition: '300ms',
+                      ':hover': {
+                        transform: 'scale(1.5)',
+                      } } }
+                  />
+                )
+            }
+          </div>
 
         </div>
 

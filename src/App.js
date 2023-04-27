@@ -70,7 +70,6 @@ class App extends React.Component {
     this.setState({ volume });
     const { audio } = this.state;
     audio.volume = volume / reff;
-    console.log(volume);
   };
 
   setIsLogged = () => {

@@ -44,7 +44,7 @@ export default class Favorites extends Component {
                     text="Você ainda não possui nenhum favorito salvo!"
                   />
                     : (
-                      <div>
+                      <div className="Favorites">
                         {
                           favorites.map((fav, index) => (<MusicCard
                             key={ index }

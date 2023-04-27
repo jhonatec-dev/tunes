@@ -18,6 +18,16 @@ export default class Search extends Component {
     hasRequested: false,
   };
 
+  componentDidMount() {
+    const search = JSON.parse(localStorage.getItem('search'));
+    if (search) {
+      this.setState(
+        { searchInputText: search },
+        async () => { await this.handleSearchClick(); },
+      );
+    }
+  }
+
   handleInputChange = ({ target: { value } }) => {
     this.setState({
       searchInputText: value,
@@ -40,6 +50,8 @@ export default class Search extends Component {
       albums = await searchAlbumsAPI(artist);
     }
     this.setState({ showLoading: false, albums });
+    // salvar termo no localStorage
+    localStorage.setItem('search', JSON.stringify(artist));
   };
 
   handleKeyDown = ({ keyCode }) => {

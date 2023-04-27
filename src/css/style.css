@@ -357,6 +357,7 @@ input {
   gap: 12px;
   padding: 12px;
   position: relative;
+  transition: 300ms;
 
 }
 
@@ -468,7 +469,7 @@ input {
   align-items: center;
   display: flex;
   gap: 8px;
-  padding: 40px 12px 0;
+  padding: 28px 12px 0;
   width: 100vw;
   z-index: 5;
 }
@@ -493,6 +494,11 @@ input {
   background: var(--main-color);
 }
 
+.volume-slider-container {
+  align-items: center;
+  display: flex;
+}
+
 .play__next__buttons .material-symbols-outlined {
   font-size: 30px;
   font-variation-settings: 'FILL' 1;
@@ -502,66 +508,13 @@ input {
   text-align: center;
 }
 
-/* Slider */
-.Slider {
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
-.horizontal-slider {
-  background: var(--main-color);
-  height: 8px;
-}
-
-.example-thumb {
-  background: var(--background);
-  border-radius: 50%;
-  bottom: -20px;
-  box-shadow: 0 0 4px var(--ligth-color);
-  padding: 2px;
-  text-align: center;
-  width: 48px;
-}
-
-.example-thumb-img {
-  filter: brightness(130%);
+.Track .css-eg0mwd-MuiSlider-thumb {
+  background-image: url('../media/images/thumb.gif');
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.412);
   height: 40px;
-  mix-blend-mode: luminosity;
-  user-select: none;
-}
-
-/* Volume Slider */
-.volume-slider-container {
-  align-items: center;
-  display: flex;
-}
-
-.volume-slider-icon {
-  cursor: pointer;
-  font-size: 30px;
-  margin-right: 2px;
-  opacity: 0.5;
-  user-select: none;
-}
-
-.volume-slider {
-  background-color: rgba(255, 255, 255, 0.3);
-  height: 2px;
-  width: 100%;
-}
-
-.volume-thumb {
-  background: white;
-  border-radius: 50%;
-  bottom: -8px;
-  color: transparent;
-  height: 20px;
-  opacity: 0.8;
-  transition: 300ms;
-  user-select: none;
-  width: 20px;
+  width: 40px;
 }
 
 @media screen and ( max-width : 650px ) {

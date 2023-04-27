@@ -1,3 +1,5 @@
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
+import { Checkbox } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { addSong, removeSong } from '../services/favoriteSongsAPI';
@@ -15,18 +17,16 @@ export default class MusicCard extends Component {
   }
 
   handleFavoritar = async (event) => {
-    const { target: { className } } = event;
+    const { target: { checked } } = event;
     event.stopPropagation();
     this.setState({ showLoading: true });
     const { music, handleRemoveFromFavorites } = this.props;
-    if (className.includes('isChecked')) {
-      await removeSong(music);
-      this.setState({ isFavorited: false });
-    } else {
+    if (checked) {
       await addSong(music);
-      this.setState({ isFavorited: true });
+    } else {
+      await removeSong(music);
     }
-    this.setState({ showLoading: false });
+    this.setState({ showLoading: false, isFavorited: checked });
     handleRemoveFromFavorites();
   };
 
@@ -52,22 +52,26 @@ export default class MusicCard extends Component {
             <p>{`${music.collectionName} - ${music.artistName}`}</p>
           </div>
 
-          <span
-            className={
-              `material-symbols-outlined favorite ${isFavorited ? 'isChecked' : ''}`
-            }
-            onClick={ this.handleFavoritar }
-            data-testid={ `checkbox-music-${music.trackId}` }
-            role="checkbox"
-            aria-hidden
-            aria-checked={ isFavorited }
-          >
-            {
-              showLoading
-                ? (<Loading />)
-                : 'favorite'
-            }
-          </span>
+          {
+            showLoading
+              ? (<Loading />)
+              : (
+                <Checkbox
+                  className="CheckFavorite"
+                  onChange={ this.handleFavoritar }
+                  icon={ <FavoriteBorder /> }
+                  checkedIcon={ <Favorite sx={ { color: 'var(--ligth-color)' } } /> }
+                  checked={ isFavorited }
+                  sx={ { color: 'var(--ligth-color)',
+                    position: 'absolute',
+                    right: '0',
+                    transition: '300ms',
+                    ':hover': {
+                      transform: 'scale(1.3)',
+                    } } }
+                />
+              )
+          }
 
         </div>
 

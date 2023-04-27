@@ -65,11 +65,12 @@ class App extends React.Component {
     this.setState({ playlist, playing, music, audio }, () => { audio.play(); });
   };
 
-  changeVolume = (volume) => {
+  changeVolume = (_ev, volume) => {
     const reff = 100;
     this.setState({ volume });
     const { audio } = this.state;
     audio.volume = volume / reff;
+    console.log(volume);
   };
 
   setIsLogged = () => {

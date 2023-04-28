@@ -6,6 +6,8 @@ Application that uses Apple Music API to play previews of different albums.
 
 <img src="./print.png" alt="Print da aplicação" />
 
+<img src="./print2.png" alt="Print da aplicação" />
+
 # Functionalities
 - Login with name and avatar
 - Search by artist/albums

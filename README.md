@@ -29,7 +29,7 @@ Application that uses Apple Music API to play previews of different albums.
 
 # Changelog
 
-### 2023-04-27 - UX bugs solved
-### 2023-04-26 - Migrate to MUI components (Slider, icons, Checkbox)
-### 2023-04-23 - Start with UX
-### 2023-04-22 - Core project built
+- 2023-04-27 - UX bugs solved
+- 2023-04-26 - Migrate to MUI components (Slider, icons, Checkbox)
+- 2023-04-23 - Start with UX
+- 2023-04-22 - Core project built
